@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoHeal Test Report - AutoHeal_2026-06-12_12-03-52-027</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .stat-box { background: #ecf0f1; padding: 15px; border-radius: 5px; text-align: center; }
+        .stat-value { font-size: 2em; font-weight: bold; color: #2980b9; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #34495e; color: white; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .original { background-color: #d5edd0 !important; }
+        .dom-healed { background-color: #fff2cc !important; }
+        .visual-healed { background-color: #ffe6e6 !important; }
+        .cached { background-color: #e1f5fe !important; }
+        .failed { background-color: #ffebee !important; }
+        .success { color: #27ae60; font-weight: bold; }
+        .failure { color: #e74c3c; font-weight: bold; }
+        code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; }
+        .filter-section { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #3498db; }
+        .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 15px 0; }
+        .filter-select, .search-box { width: 100%; padding: 8px 12px; border: 2px solid #bdc3c7; border-radius: 4px; }
+        .filter-stats { text-align: center; margin: 15px 0; padding: 10px; background: #ecf0f1; border-radius: 4px; }
+        .reset-btn { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        .reset-btn:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AutoHeal Test Report</h1>
+        <p><strong>Test Run:</strong> AutoHeal_2026-06-12_12-03-52-027</p>
+        <p><strong>Generated:</strong> 2026-06-12_12-03-58-280</p>
+
+        <div class="stats">
+            <div class="stat-box"><div class="stat-value">0</div><div>Total Selectors</div></div>
+            <div class="stat-box"><div class="stat-value">0</div><div>Successful</div></div>
+            <div class="stat-box"><div class="stat-value">0</div><div>Original Selectors</div></div>
+            <div class="stat-box"><div class="stat-value">0</div><div>DOM Healed</div></div>
+            <div class="stat-box"><div class="stat-value">0</div><div>Visual Healed</div></div>
+            <div class="stat-box"><div class="stat-value">0</div><div>Cached Results</div></div>
+        </div>
+
+        <div class="filter-section">
+            <h3>🔍 Filter Results</h3>
+            <div class="filters">
+                <div>
+                    <label>Strategy:</label>
+                    <select id="strategyFilter" class="filter-select">
+                        <option value="">All Strategies</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Status:</label>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">All Status</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Performance:</label>
+                    <select id="performanceFilter" class="filter-select">
+                        <option value="">All Performance</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Search:</label>
+                    <input type="text" id="searchBox" class="search-box" placeholder="Search all columns...">
+                </div>
+            </div>
+            <div class="filter-stats">
+                <span id="resultCount">Showing 0 of 0 results</span>
+                <button id="resetFilters" class="reset-btn">Reset Filters</button>
+            </div>
+        </div>
+
+        
+
+        <h2>📋 Detailed Selector Report</h2>
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <th>Original Selector</th>
+                    <th>Strategy</th>
+                    <th>Time (ms)</th>
+                    <th>Status</th>
+                    <th>Actual Selector</th>
+                    <th>Element</th>
+                    <th>Tokens</th>
+                    <th>Reasoning</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const table = document.getElementById('reportTable');
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            const strategyFilter = document.getElementById('strategyFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const performanceFilter = document.getElementById('performanceFilter');
+            const searchBox = document.getElementById('searchBox');
+            const resetBtn = document.getElementById('resetFilters');
+            const resultCount = document.getElementById('resultCount');
+
+            // Populate filter options
+            const strategies = new Set();
+            const statuses = new Set();
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) {
+                    strategies.add(cells[1].textContent.trim());
+                    statuses.add(cells[3].textContent.trim());
+                }
+            });
+
+            strategies.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s; opt.textContent = s;
+                strategyFilter.appendChild(opt);
+            });
+
+            statuses.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s; opt.textContent = s;
+                statusFilter.appendChild(opt);
+            });
+
+            ['Fast (<100ms)', 'Medium (100-500ms)', 'Slow (>500ms)'].forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p; opt.textContent = p;
+                performanceFilter.appendChild(opt);
+            });
+
+            function applyFilters() {
+                const strategyValue = strategyFilter.value;
+                const statusValue = statusFilter.value;
+                const performanceValue = performanceFilter.value;
+                const searchValue = searchBox.value.toLowerCase();
+                let visibleCount = 0;
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let show = true;
+
+                    if (cells.length >= 4) {
+                        if (strategyValue && cells[1].textContent.trim() !== strategyValue) show = false;
+                        if (statusValue && cells[3].textContent.trim() !== statusValue) show = false;
+
+                        if (performanceValue) {
+                            const time = parseInt(cells[2].textContent.trim());
+                            let perfCategory = '';
+                            if (time < 100) perfCategory = 'Fast (<100ms)';
+                            else if (time < 500) perfCategory = 'Medium (100-500ms)';
+                            else perfCategory = 'Slow (>500ms)';
+                            if (perfCategory !== performanceValue) show = false;
+                        }
+
+                        if (searchValue) {
+                            const rowText = Array.from(cells).map(c => c.textContent.toLowerCase()).join(' ');
+                            if (!rowText.includes(searchValue)) show = false;
+                        }
+                    }
+
+                    row.style.display = show ? '' : 'none';
+                    if (show) visibleCount++;
+                });
+
+                resultCount.textContent = `Showing ${visibleCount} of ${rows.length} results`;
+            }
+
+            function resetFilters() {
+                strategyFilter.value = '';
+                statusFilter.value = '';
+                performanceFilter.value = '';
+                searchBox.value = '';
+                applyFilters();
+            }
+
+            strategyFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+            performanceFilter.addEventListener('change', applyFilters);
+            searchBox.addEventListener('input', applyFilters);
+            resetBtn.addEventListener('click', resetFilters);
+        });
+        </script>
+    </div>
+</body>
+</html>
