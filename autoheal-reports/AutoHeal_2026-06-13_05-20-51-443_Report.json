@@ -1,0 +1,21 @@
+{
+  "reportMetadata": {
+    "generatedAt": "2026-06-13T05:20:59.536Z",
+    "testRunId": "AutoHeal_2026-06-13_05-20-51-443",
+    "startTime": "2026-06-13T05:20:51.477Z",
+    "endTime": "2026-06-13T05:20:59.536Z",
+    "duration": "0m 8s",
+    "totalSelectors": 0
+  },
+  "summary": {
+    "totalElements": 0,
+    "successfulHealing": 0,
+    "failedHealing": 0,
+    "healingSuccessRate": "NaN",
+    "originalSelectorCount": 0,
+    "domHealedCount": 0,
+    "visualHealedCount": 0,
+    "cachedCount": 0
+  },
+  "healingActivities": []
+}
